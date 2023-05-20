@@ -5,10 +5,11 @@ using System.Text;
 
 namespace DateUtils
 {
-    internal class DateUtilsParser
+    public class DateUtilsParser
     {
         public int GetMonth(string date)
         {
+            //123 222
             return DateTime.Parse(date).Month;
         }
     }
