@@ -1,0 +1,6 @@
+E:\VSProj\DateUtils\bin\Release\DateUtils.dll
+E:\VSProj\DateUtils\bin\Release\DateUtils.pdb
+E:\VSProj\DateUtils\obj\Release\DateUtils.csproj.AssemblyReference.cache
+E:\VSProj\DateUtils\obj\Release\DateUtils.csproj.CoreCompileInputs.cache
+E:\VSProj\DateUtils\obj\Release\DateUtils.dll
+E:\VSProj\DateUtils\obj\Release\DateUtils.pdb
