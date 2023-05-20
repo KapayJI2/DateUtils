@@ -8,18 +8,19 @@ using System.Web.UI.WebControls;
 
 namespace DateUtils
 {
+    public class Indexes
+    {
+        public string date { get; set; }
+        public long dateParse { get; set; }
+        public string nameMonth { get; set; }
+        public string year { get; set; }
+        public double idx { get; set; }
+    }
     public class FileReadAndWrite
     {
         private List<Indexes> indexes;
         readonly string path = Directory.GetCurrentDirectory() + "\\indexes.json";
-        public class Indexes
-        {
-            public string date { get; set; }
-            public long dateParse { get; set; }
-            public string nameMonth { get; set; }
-            public string year { get; set; }
-            public double idx { get; set; }
-        }
+
         public List<Indexes> CreateList()
         {
             
