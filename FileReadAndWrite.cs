@@ -15,6 +15,7 @@ namespace DateUtils
         public string nameMonth { get; set; }
         public string year { get; set; }
         public double idx { get; set; }
+        public double middle_loan { get; set; }
     }
     public class FileReadAndWrite
     {
