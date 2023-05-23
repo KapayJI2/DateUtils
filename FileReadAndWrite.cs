@@ -34,7 +34,7 @@ namespace DateUtils
             indexes.Sort((a, b) => b.dateParse.CompareTo(a.dateParse));
             return indexes;
         }
-        public List<Indexes> SaveChanges(Indexes ch_value, int index)
+        public List<Indexes> SaveChanges(Indexes ch_value, int index = 0)
         {
             List<Indexes> indexes = this.CreateList();
 
@@ -50,6 +50,42 @@ namespace DateUtils
                 }
             });
            
+            StreamWriter sw = new StreamWriter(path);
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            string s = jss.Serialize(indexes.ToArray());
+            sw.WriteLine(s);
+            sw.Close();
+            indexes.Clear();
+            indexes = this.CreateList();
+            return indexes;
+        }
+        public List<Indexes> AddIndex(Indexes ch_value)
+        {
+            indexes.Clear();
+            indexes = this.CreateList();
+
+            indexes.Add(ch_value);
+
+            StreamWriter sw = new StreamWriter(path);
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            string s = jss.Serialize(indexes.ToArray());
+            sw.WriteLine(s);
+            sw.Close();
+            indexes.Clear();
+            indexes = this.CreateList();
+            return indexes;
+        }
+        public List<Indexes> DelItem(long dateParse)
+        {
+            List<Indexes> indexes = this.CreateList();
+            indexes.ForEach(item =>
+            {
+                if(item.dateParse == dateParse)
+                {
+                    indexes.Remove(item);
+                }
+            });
+
             StreamWriter sw = new StreamWriter(path);
             JavaScriptSerializer jss = new JavaScriptSerializer();
             string s = jss.Serialize(indexes.ToArray());
