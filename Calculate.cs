@@ -26,8 +26,8 @@ namespace DateUtils
     {
         public List<LoanList> Result_List(List<Indexes> indexes,bool summ_checked,double start_summ, string startDate, string endDate, List<MiddleLoan> middle_list = null)
         {
-            try
-            {
+            //try
+            //{
                 List<LoanList> result = new List<LoanList>();
                 List<Indexes> operation_list = new List<Indexes>();
                 long start_date_to_long = (long)(DateTime.Parse(startDate) - new DateTime(1970, 1, 1)).TotalMilliseconds / 1000;
@@ -70,8 +70,8 @@ namespace DateUtils
                                 LoanList loan_list = new LoanList();
                                 loan_list.summ = String.Format("{0:0.00}", start_summ);
                                 loan_list.from = DateTime.Parse(startDate).ToShortDateString();
-                                loan_list.to = new DateTime(DateTime.Parse(startDate).Year, DateTime.Parse(startDate).Month, DateTime.DaysInMonth(DateTime.Parse(startDate).Year, DateTime.Parse(startDate).Month)).ToShortDateString();
-                                loan_list.days = DateTime.Parse(startDate).Day - DateTime.Parse(loan_list.from).Day + 1;
+                                loan_list.to = new DateTime(DateTime.Parse(loan_list.from).Year, DateTime.Parse(loan_list.from).Month, DateTime.DaysInMonth(DateTime.Parse(curr_el.date).Year, DateTime.Parse(curr_el.date).Month)).ToShortDateString();
+                            loan_list.days = DateTime.Parse(loan_list.to).Day - DateTime.Parse(startDate).Day + 1;
                                 int days_in_current_month = DateTime.DaysInMonth(DateTime.Parse(curr_el.date).Year, DateTime.Parse(curr_el.date).Month);
                                 loan_list.index = curr_el.idx;
                                 loan_list.formula = String.Format("{0:0.00} x ({1} / {2}) x {3:0.00} / 100", Convert.ToDouble(loan_list.summ), loan_list.days, days_in_current_month, loan_list.index - 100);
@@ -115,7 +115,7 @@ namespace DateUtils
                                 loan_list.index = curr_el.idx;
                                 if (curr_el.middle_loan > 0)
                                 {
-                                    loan_list.formula = String.Format("[-{0:0.00}]{1:0.00} x ({2} / {3}) x {4:0.00} / 100", curr_el.middle_loan, Convert.ToDouble(loan_list.summ) - curr_el.middle_loan, loan_list.days, days_in_current_month, loan_list.index - 100);
+                                    loan_list.formula = String.Format("[-{0:0.00}] {1:0.00} x ({2} / {3}) x {4:0.00} / 100", curr_el.middle_loan, Convert.ToDouble(loan_list.summ) - curr_el.middle_loan, loan_list.days, days_in_current_month, loan_list.index - 100);
                                 }
                                 else
                                 {
@@ -173,11 +173,11 @@ namespace DateUtils
                                 loan_list.index = curr_el.idx;
                                 if (curr_el.middle_loan > 0)
                                 {
-                                    loan_list.formula = String.Format("[-{0:0.00}]{1:0.00} x ({2} / {3}) x {4:0.00} / 100", curr_el.middle_loan, Convert.ToDouble(loan_list.summ) - curr_el.middle_loan, loan_list.days, days_in_current_month, loan_list.index - 100);
+                                    loan_list.formula = String.Format("[-{0:0.00}] {1:0.00} x ({2} / {3}) x {4:0.00} / 100", curr_el.middle_loan, Convert.ToDouble(loan_list.summ) - curr_el.middle_loan, loan_list.days, days_in_current_month, loan_list.index - 100);
                                 }
                                 else
                                 {
-                                    loan_list.formula = String.Format("{0} x ({1} / {2}) x {3:0.00} / 100", curr_el.date, loan_list.days, days_in_current_month, loan_list.index - 100);
+                                    loan_list.formula = String.Format("{0} x ({1} / {2}) x {3:0.00} / 100", loan_list.summ, loan_list.days, days_in_current_month, loan_list.index - 100);
                                 }
                                 //loan_list.formula = "222";
                                 if (loan_list.index > 100)
@@ -347,10 +347,10 @@ namespace DateUtils
                     }
                     return result;
                 }
-            }catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            //}catch(Exception ex)
+            //{
+            //    throw new Exception(ex.Message);
+            //}
         }
     }
 }
