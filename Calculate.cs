@@ -74,7 +74,7 @@ namespace DateUtils
                             loan_list.days = DateTime.Parse(loan_list.to).Day - DateTime.Parse(startDate).Day + 1;
                                 int days_in_current_month = DateTime.DaysInMonth(DateTime.Parse(curr_el.date).Year, DateTime.Parse(curr_el.date).Month);
                                 loan_list.index = curr_el.idx;
-                                loan_list.formula = String.Format("{0:0.00} x ({1} / {2}) x {3:0.00} / 100", Convert.ToDouble(loan_list.summ), loan_list.days, days_in_current_month, loan_list.index - 100);
+                                loan_list.formula = String.Format("хуй {0:0.00} x ({1} / {2}) x {3:0.00} / 100", Convert.ToDouble(loan_list.summ), loan_list.days, days_in_current_month, loan_list.index - 100);
                                 //loan_list.formula = "000";
                                 if (loan_list.index > 100)
                                 {
