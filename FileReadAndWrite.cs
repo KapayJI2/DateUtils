@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace DateUtils
     {
         private List<Indexes> indexes;
         readonly string path = Directory.GetCurrentDirectory() + "\\indexes.json";
+        readonly string path_table = Directory.GetCurrentDirectory() + "\\table.htm";
 
         public List<Indexes> CreateList()
         {
@@ -94,6 +96,21 @@ namespace DateUtils
             indexes.Clear();
             indexes = this.CreateList();
             return indexes;
+        }
+        public void WriteClipboard(string str) {
+            try
+            {
+                StreamWriter sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\table.htm");
+                sw.WriteLine(str);
+                sw.Close();
+                ProcessStartInfo info = new ProcessStartInfo("winword.exe");
+                info.Arguments = Directory.GetCurrentDirectory() + "\\table.htm";
+                Process.Start(info);
+                
+            }catch (Exception ex)
+            {
+                
+            }
         }
     }
 }
