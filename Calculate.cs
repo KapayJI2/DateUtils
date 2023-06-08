@@ -120,7 +120,7 @@ namespace DateUtils
                                 else
                                 {
                                 loan_list.summ = String.Format("{0:0.00}", start_summ);
-                                    loan_list.formula = String.Format("{0:0.00} x ({1} / {2}) x {3:0.00} / 100", Convert.ToDouble(loan_list.summ), loan_list.days, days_in_current_month, loan_list.index - 100);
+                                loan_list.formula = String.Format("{0:0.00} x ({1} / {2}) x {3:0.00} / 100", Convert.ToDouble(loan_list.summ), loan_list.days, days_in_current_month, loan_list.index - 100);
                                 }
                                 //loan_list.formula = "111";
                                 if (loan_list.index > 100)
@@ -226,26 +226,48 @@ namespace DateUtils
                             loan_list.days = DateTime.Parse(endDate).Day - DateTime.Parse(loan_list.from).Day + 1;
                             int days_in_current_month = DateTime.DaysInMonth(DateTime.Parse(curr_el.date).Year, DateTime.Parse(curr_el.date).Month);
                             loan_list.index = curr_el.idx;
+                        //loan_list.formula = String.Format("{0:0.00} x ({1} / {2}) x {3:0.00} / 100", Convert.ToDouble(loan_list.summ), loan_list.days, days_in_current_month, loan_list.index - 100);
+                        if (curr_el.middle_loan > 0)
+                        {
+                            loan_list.formula = String.Format("[-{0:0.00}] {1:0.00} x ({2} / {3}) x {4:0.00} / 100", curr_el.middle_loan, Convert.ToDouble(loan_list.summ) - curr_el.middle_loan, loan_list.days, days_in_current_month, loan_list.index - 100);
+                        }
+                        else
+                        {
+                            loan_list.summ = String.Format("{0:0.00}", start_summ);
                             loan_list.formula = String.Format("{0:0.00} x ({1} / {2}) x {3:0.00} / 100", Convert.ToDouble(loan_list.summ), loan_list.days, days_in_current_month, loan_list.index - 100);
-                            //loan_list.formula = "333";
-                            if (loan_list.index > 100)
+                        }
+                        //loan_list.formula = "333";
+                        if (loan_list.index > 100)
+                        {
+                            if (curr_el.middle_loan > 0)
                             {
-                                loan_list.result = String.Format("{0:0.00}", Convert.ToDouble(loan_list.summ) * (Convert.ToDouble(loan_list.days) / Convert.ToDouble(days_in_current_month)) * (loan_list.index - 100) / 100);
-                                if (summ_checked)
-                                {
-                                    start_summ = Convert.ToDouble(loan_list.summ) - Convert.ToDouble(loan_list.result);
-                                }
-                                else
-                                {
-                                    start_summ = Convert.ToDouble(loan_list.summ);
-                                }
+                                loan_list.result = String.Format("{0:0.00}", (Convert.ToDouble(loan_list.summ) - curr_el.middle_loan) * (Convert.ToDouble(loan_list.days) / Convert.ToDouble(days_in_current_month)) * (loan_list.index - 100) / 100);
                             }
                             else
                             {
-                                loan_list.result = "-";
+                                loan_list.result = String.Format("{0:0.00}", Convert.ToDouble(loan_list.summ) * (Convert.ToDouble(loan_list.days) / Convert.ToDouble(days_in_current_month)) * (loan_list.index - 100) / 100);
+                            }
+
+                            if (summ_checked)
+                            {
+                                start_summ = Convert.ToDouble(loan_list.summ) - Convert.ToDouble(loan_list.result);
+                            }
+                            else
+                            {
                                 start_summ = Convert.ToDouble(loan_list.summ);
                             }
-                            result.Add(loan_list);
+                            if (curr_el.middle_loan > 0)
+                            {
+                                start_summ = Convert.ToDouble(loan_list.summ) - Convert.ToDouble(curr_el.middle_loan);
+                                loan_list.summ = String.Format("{0:0.00}", start_summ);
+                            }
+                        }
+                        else
+                        {
+                            loan_list.result = "-";
+                            start_summ = Convert.ToDouble(loan_list.summ);
+                        }
+                        result.Add(loan_list);
                             continue;
                         }
                     }

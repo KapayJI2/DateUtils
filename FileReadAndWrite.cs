@@ -100,11 +100,12 @@ namespace DateUtils
         public void WriteClipboard(string str) {
             try
             {
-                StreamWriter sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\table.htm");
+                string hash = DateTime.Now.ToString().GetHashCode().ToString();
+                StreamWriter sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\table" + hash + ".htm");
                 sw.WriteLine(str);
                 sw.Close();
                 ProcessStartInfo info = new ProcessStartInfo("winword.exe");
-                info.Arguments = Directory.GetCurrentDirectory() + "\\table.htm";
+                info.Arguments = Directory.GetCurrentDirectory() + "\\table" + hash + ".htm";
                 Process.Start(info);
                 
             }catch (Exception ex)
