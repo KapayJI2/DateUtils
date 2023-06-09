@@ -150,7 +150,12 @@ namespace DateUtils
                                 }
                                 else
                                 {
-                                    loan_list.result = "-";
+                                if (curr_el.middle_loan > 0)
+                                {
+                                    start_summ = Convert.ToDouble(loan_list.summ) - Convert.ToDouble(curr_el.middle_loan);
+                                    loan_list.summ = String.Format("{0:0.00}", start_summ);
+                                }
+                                loan_list.result = "-";
                                     start_summ = Convert.ToDouble(loan_list.summ);
                                 }
                                 result.Add(loan_list);
@@ -210,7 +215,12 @@ namespace DateUtils
                                 }
                                 else
                                 {
-                                    loan_list.result = "-";
+                                if (curr_el.middle_loan > 0)
+                                {
+                                    start_summ = Convert.ToDouble(loan_list.summ) - Convert.ToDouble(curr_el.middle_loan);
+                                    loan_list.summ = String.Format("{0:0.00}", start_summ);
+                                }
+                                loan_list.result = "-";
                                     start_summ = Convert.ToDouble(loan_list.summ);
                                 }
                                 result.Add(loan_list);
@@ -264,6 +274,11 @@ namespace DateUtils
                         }
                         else
                         {
+                            if (curr_el.middle_loan > 0)
+                            {
+                                start_summ = Convert.ToDouble(loan_list.summ) - Convert.ToDouble(curr_el.middle_loan);
+                                loan_list.summ = String.Format("{0:0.00}", start_summ);
+                            }
                             loan_list.result = "-";
                             start_summ = Convert.ToDouble(loan_list.summ);
                         }
