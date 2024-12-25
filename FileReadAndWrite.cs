@@ -101,14 +101,19 @@ namespace DateUtils
             try
             {
                 string hash = DateTime.Now.ToString().GetHashCode().ToString();
-                StreamWriter sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\table" + hash + ".htm");
+                string file_name = Directory.GetCurrentDirectory() + "\\table" + hash + ".doc";
+                StreamWriter sw = new StreamWriter(file_name);
                 sw.WriteLine(str);
                 sw.Close();
-                ProcessStartInfo info = new ProcessStartInfo("winword.exe");
-                info.Arguments = Directory.GetCurrentDirectory() + "\\table" + hash + ".htm";
-                Process.Start(info);
-                
-            }catch (Exception ex)
+                //ProcessStartInfo info = new ProcessStartInfo("winword.exe");
+                //info.Arguments = Directory.GetCurrentDirectory() + "\\table" + hash + ".doc";
+                //Process.Start(info);
+                Process pc = new Process();
+                pc.StartInfo.FileName = file_name;
+                pc.Start();
+
+            }
+            catch (Exception ex)
             {
                 
             }
